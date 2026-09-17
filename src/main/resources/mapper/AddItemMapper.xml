@@ -8,14 +8,17 @@
         VALUES (#{title}, #{content})
     </insert>
 
-    <resultMap id="AddItemResult" type="com.back.back.dto.AddItem">
+    <resultMap id="todoMap" type="com.back.back.po.Todo">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
+        <result column="completed" property="completed" />
+        <result column="created_at" property="createdAt" />
+        <result column="update_at" property="updateAt" />
     </resultMap>
 
-    <select id="searchAll" resultMap="AddItemResult">
-        SELECT id, title, content
+    <select id="searchAll" resultMap="todoMap">
+        SELECT id, title, content, completed, created_at, update_at
         FROM todo
     </select>
 
@@ -24,7 +27,11 @@
     </delete>
 
     <update id="updateById" >
-        update todo set title=#{title}, content=#{content} where id=#{id}
+        update todo set title=#{title}, content=#{content}, update_at=NOW() where id=#{id}
     </update>
+
+    <select id="selectById" resultMap="todoMap">
+        select id, title, content, completed, created_at, update_at from todo where id=#{id}
+    </select>
 
 </mapper>

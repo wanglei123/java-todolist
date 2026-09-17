@@ -17,5 +17,8 @@ public interface AddItemService {
 
     // 根据id更新
     int updateById(AddItem item);
+
+    // 根据id查询详情
+    AddItem selectById(int id);
 }
 

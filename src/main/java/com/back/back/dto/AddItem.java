@@ -42,6 +42,9 @@ public class AddItem {
         return Objects.equals(id, addItem.id) && Objects.equals(title, addItem.title) && Objects.equals(content, addItem.content);
     }
 
+    public AddItem() {
+    }
+
     @Override
     public int hashCode() {
         int result = Objects.hashCode(id);

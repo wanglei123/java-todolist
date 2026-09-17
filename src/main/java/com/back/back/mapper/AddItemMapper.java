@@ -1,6 +1,6 @@
 package com.back.back.mapper;
 
-import com.back.back.dto.AddItem;
+import com.back.back.po.Todo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,11 +8,13 @@ import java.util.List;
 @Mapper
 public interface AddItemMapper {
 
-    int insert(AddItem item);
+    int insert(Todo todo);
 
-    List<AddItem> searchAll();
+    List<Todo> searchAll();
 
     int deleteById(int id);
 
-    int updateById(AddItem item);
+    int updateById(Todo todo);
+
+    Todo selectById(int id);
 }

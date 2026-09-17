@@ -48,5 +48,11 @@ public class AddController {
         return addItemService.updateById(item);
     }
 
+    @PostMapping
+    @RequestMapping("/getDetailById/{id}")
+    public AddItem getDetailById(@PathVariable int id){
+        return addItemService.selectById(id);
+    }
+
 
 }
