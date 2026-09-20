@@ -4,8 +4,8 @@
 <mapper namespace="com.back.back.mapper.TodoMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO todo (title, content)
-        VALUES (#{title}, #{content})
+        INSERT INTO todo (title, content, completed, expected_complete_date)
+        VALUES (#{title}, #{content}, #{completed}, #{expectedCompleteDate, jdbcType=DATE})
     </insert>
 
     <resultMap id="todoMap" type="com.back.back.po.Todo">
@@ -13,12 +13,13 @@
         <result column="title" property="title"/>
         <result column="content" property="content"/>
         <result column="completed" property="completed" />
+        <result column="expected_complete_date" property="expectedCompleteDate" />
         <result column="created_at" property="createdAt" />
         <result column="update_at" property="updateAt" />
     </resultMap>
 
     <select id="searchAll" resultMap="todoMap">
-        SELECT id, title, content, completed, created_at, update_at
+        SELECT id, title, content, completed, expected_complete_date, created_at, update_at
         FROM todo
     </select>
 
@@ -27,11 +28,15 @@
     </delete>
 
     <update id="updateById" >
-        update todo set title=#{title}, content=#{content}, update_at=NOW() where id=#{id}
+        update todo set title=#{title}, content=#{content}, completed=#{completed}, expected_complete_date=#{expectedCompleteDate, jdbcType=DATE}, update_at=NOW() where id=#{id}
+    </update>
+
+    <update id="updateCompleted">
+        update todo set completed=#{completed}, update_at=NOW() where id=#{id}
     </update>
 
     <select id="selectById" resultMap="todoMap">
-        select id, title, content, completed, created_at, update_at from todo where id=#{id}
+        select id, title, content, completed, expected_complete_date, created_at, update_at from todo where id=#{id}
     </select>
 
 </mapper>

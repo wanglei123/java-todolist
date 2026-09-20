@@ -16,5 +16,7 @@ public interface TodoMapper {
 
     int updateById(Todo todo);
 
+    int updateCompleted(Todo todo);
+
     Todo selectById(int id);
 }

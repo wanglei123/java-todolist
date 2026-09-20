@@ -8,6 +8,7 @@
  */
 package com.back.back.controller;
 
+import com.back.back.dto.TodoCompletedDTO;
 import com.back.back.dto.TodoDTO;
 import com.back.back.service.TodoService;
 import com.back.back.vo.TodoVO;
@@ -47,6 +48,12 @@ public class TodoController {
     @RequestMapping("/update")
     public int updateById(@RequestBody TodoDTO dto){
         return todoService.updateById(dto);
+    }
+
+    @PostMapping
+    @RequestMapping("/updateCompleted")
+    public int updateCompleted(@RequestBody TodoCompletedDTO dto){
+        return todoService.updateCompleted(dto);
     }
 
     @PostMapping

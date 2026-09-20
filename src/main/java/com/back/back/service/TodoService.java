@@ -1,5 +1,6 @@
 package com.back.back.service;
 
+import com.back.back.dto.TodoCompletedDTO;
 import com.back.back.dto.TodoDTO;
 import com.back.back.vo.TodoVO;
 
@@ -18,6 +19,9 @@ public interface TodoService {
 
     // 根据id更新
     int updateById(TodoDTO dto);
+
+    // 根据id更新完成状态
+    int updateCompleted(TodoCompletedDTO dto);
 
     // 根据id查询详情
     TodoVO selectById(int id);
