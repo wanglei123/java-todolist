@@ -8,6 +8,7 @@
  */
 package com.back.back.controller;
 
+import com.back.back.common.Result;
 import com.back.back.dto.TodoCompletedDTO;
 import com.back.back.dto.TodoDTO;
 import com.back.back.service.TodoService;
@@ -28,38 +29,38 @@ public class TodoController {
 
     @PostMapping
     @RequestMapping("/add")
-    public TodoVO add(@RequestBody TodoDTO dto) {
-        return todoService.add(dto);
+    public Result<TodoVO> add(@RequestBody TodoDTO dto) {
+        return Result.success(todoService.add(dto));
     }
 
     @PostMapping
     @RequestMapping("/list")
-    public List<TodoVO> search(){
-        return todoService.search();
+    public Result<List<TodoVO>> search(){
+        return Result.success(todoService.search());
     }
 
     @PostMapping
     @RequestMapping("/delete/{id}")
-    public int deleteItem(@PathVariable int id){
-        return todoService.deleteById(id);
+    public Result<Integer> deleteItem(@PathVariable int id){
+        return Result.success(todoService.deleteById(id));
     }
 
     @PostMapping
     @RequestMapping("/update")
-    public int updateById(@RequestBody TodoDTO dto){
-        return todoService.updateById(dto);
+    public Result<Integer> updateById(@RequestBody TodoDTO dto){
+        return Result.success(todoService.updateById(dto));
     }
 
     @PostMapping
     @RequestMapping("/updateCompleted")
-    public int updateCompleted(@RequestBody TodoCompletedDTO dto){
-        return todoService.updateCompleted(dto);
+    public Result<Integer> updateCompleted(@RequestBody TodoCompletedDTO dto){
+        return Result.success(todoService.updateCompleted(dto));
     }
 
     @PostMapping
     @RequestMapping("/getDetailById/{id}")
-    public TodoVO getDetailById(@PathVariable int id){
-        return todoService.selectById(id);
+    public Result<TodoVO> getDetailById(@PathVariable int id){
+        return Result.success(todoService.selectById(id));
     }
 
 
