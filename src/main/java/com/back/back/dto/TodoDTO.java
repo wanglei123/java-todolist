@@ -9,6 +9,7 @@
 package com.back.back.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,14 +17,15 @@ import java.time.LocalDate;
 @Data
 public class TodoDTO {
     private Long id;
+
+    @NotBlank(message = "title 不能为空")
     private String title;
+
+    @NotBlank(message = "content 不能为空")
     private String content;
     private Integer completed;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expectedCompleteDate;
-
-    public TodoDTO() {
-    }
 }
 

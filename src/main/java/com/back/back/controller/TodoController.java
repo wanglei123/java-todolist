@@ -13,6 +13,7 @@ import com.back.back.dto.TodoCompletedDTO;
 import com.back.back.dto.TodoDTO;
 import com.back.back.service.TodoService;
 import com.back.back.vo.TodoVO;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class TodoController {
 
     @PostMapping
     @RequestMapping("/add")
-    public Result<TodoVO> add(@RequestBody TodoDTO dto) {
+    public Result<TodoVO> add(@Valid @RequestBody TodoDTO dto) {
         return Result.success(todoService.add(dto));
     }
 
@@ -41,25 +42,25 @@ public class TodoController {
 
     @PostMapping
     @RequestMapping("/delete/{id}")
-    public Result<Integer> deleteItem(@PathVariable int id){
+    public Result<Boolean> deleteItem(@PathVariable Long id){
         return Result.success(todoService.deleteById(id));
     }
 
     @PostMapping
     @RequestMapping("/update")
-    public Result<Integer> updateById(@RequestBody TodoDTO dto){
+    public Result<TodoVO> updateById(@Valid @RequestBody TodoDTO dto){
         return Result.success(todoService.updateById(dto));
     }
 
     @PostMapping
     @RequestMapping("/updateCompleted")
-    public Result<Integer> updateCompleted(@RequestBody TodoCompletedDTO dto){
+    public Result<Boolean> updateCompleted(@RequestBody TodoCompletedDTO dto){
         return Result.success(todoService.updateCompleted(dto));
     }
 
     @PostMapping
     @RequestMapping("/getDetailById/{id}")
-    public Result<TodoVO> getDetailById(@PathVariable int id){
+    public Result<TodoVO> getDetailById(@PathVariable Long id){
         return Result.success(todoService.selectById(id));
     }
 

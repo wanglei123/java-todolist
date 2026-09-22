@@ -12,11 +12,11 @@ public interface TodoMapper {
 
     List<Todo> searchAll();
 
-    int deleteById(int id);
+    int deleteById(Long id);
 
     int updateById(Todo todo);
 
     int updateCompleted(Todo todo);
 
-    Todo selectById(int id);
+    Todo selectById(Long id);
 }

@@ -23,16 +23,11 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoVO add(TodoDTO dto) {
-        if (dto == null || dto.getContent() == null || dto.getContent().trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "content 不能为空");
-        }
-        if (dto.getTitle() != null) {
-            dto.setTitle(dto.getTitle().trim());
-        }
+        dto.setTitle(dto.getTitle().trim());
         dto.setContent(dto.getContent().trim());
         Todo todo = toTodo(dto);
         todoMapper.insert(todo);
-        return toTodoVO(todoMapper.selectById(todo.getId().intValue()));
+        return toTodoVO(todoMapper.selectById(todo.getId()));
     }
 
     @Override
@@ -46,17 +41,18 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int deleteById(int id) {
-        return todoMapper.deleteById(id);
+    public boolean deleteById(Long id) {
+        return todoMapper.deleteById(id) > 0;
     }
 
     @Override
-    public int updateById(TodoDTO dto) {
-        return todoMapper.updateById(toTodo(dto));
+    public TodoVO updateById(TodoDTO dto) {
+        todoMapper.updateById(toTodo(dto));
+        return toTodoVO(todoMapper.selectById(dto.getId()));
     }
 
     @Override
-    public int updateCompleted(TodoCompletedDTO dto) {
+    public boolean updateCompleted(TodoCompletedDTO dto) {
         if (dto == null || dto.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id 不能为空");
         }
@@ -65,12 +61,12 @@ public class TodoServiceImpl implements TodoService {
         }
         Todo todo = new Todo();
         todo.setId(dto.getId());
-        todo.setCompleted(dto.getCompleted() == 1);
-        return todoMapper.updateCompleted(todo);
+        todo.setCompleted(dto.getCompleted());
+        return todoMapper.updateCompleted(todo) > 0;
     }
 
     @Override
-    public TodoVO selectById(int id) {
+    public TodoVO selectById(Long id) {
         return toTodoVO(todoMapper.selectById(id));
     }
 
@@ -79,7 +75,7 @@ public class TodoServiceImpl implements TodoService {
         todo.setId(dto.getId());
         todo.setTitle(dto.getTitle());
         todo.setContent(dto.getContent());
-        todo.setCompleted(dto.getCompleted() != null && dto.getCompleted() == 1);
+        todo.setCompleted(dto.getCompleted() != null ? dto.getCompleted() : 0);
         todo.setExpectedCompleteDate(dto.getExpectedCompleteDate());
         return todo;
     }
@@ -92,7 +88,7 @@ public class TodoServiceImpl implements TodoService {
         vo.setId(todo.getId());
         vo.setTitle(todo.getTitle());
         vo.setContent(todo.getContent());
-        vo.setCompleted(Boolean.TRUE.equals(todo.getCompleted()) ? 1 : 0);
+        vo.setCompleted(todo.getCompleted() != null ? todo.getCompleted() : 0);
         vo.setExpectedCompleteDate(todo.getExpectedCompleteDate());
         vo.setUpdateAt(todo.getUpdateAt());
         return vo;

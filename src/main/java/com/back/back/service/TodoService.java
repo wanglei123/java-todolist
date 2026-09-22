@@ -15,14 +15,14 @@ public interface TodoService {
     List<TodoVO> search();
 
     // 根据id删除
-    int deleteById(int id);
+    boolean deleteById(Long id);
 
     // 根据id更新
-    int updateById(TodoDTO dto);
+    TodoVO updateById(TodoDTO dto);
 
     // 根据id更新完成状态
-    int updateCompleted(TodoCompletedDTO dto);
+    boolean updateCompleted(TodoCompletedDTO dto);
 
     // 根据id查询详情
-    TodoVO selectById(int id);
+    TodoVO selectById(Long id);
 }

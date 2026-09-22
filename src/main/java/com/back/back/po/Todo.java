@@ -10,7 +10,7 @@ public class Todo {
     private Long id;
     private String title;
     private String content;
-    private Boolean completed;
+    private Integer completed;
     private LocalDate expectedCompleteDate;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;

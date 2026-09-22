@@ -11,7 +11,7 @@ public class TodoVO {
     private Long id;
     private String title;
     private String content;
-    private int completed;
+    private Integer completed;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expectedCompleteDate;
